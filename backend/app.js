@@ -18,8 +18,8 @@ const app = express();
 // app.use(cors());
 app.use(
   cors({
-    origin: "http://localhost:4173",
-    credentials: true, // This allows the browser to send the cookie
+    origin: process.env.FRONTEND_URL || "http://localhost:4173",
+    credentials: true,
   })
 );
 app.set("query parser", "extended");
