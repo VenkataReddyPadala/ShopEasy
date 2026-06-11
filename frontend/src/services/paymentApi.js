@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const paymentApi = createApi({
   reducerPath: "paymentApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api/v1",
+    baseUrl: import.meta.env.VITE_BACKEND_URL || "http://localhost:8000/api/v1",
     credentials: "include",
   }),
   tagTypes: ["Payment", "Cart"],

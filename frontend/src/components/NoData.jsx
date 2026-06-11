@@ -12,7 +12,7 @@ function NoData({ search, data }) {
             ? `We couldn't find any ${data} matching "${search}". Try using different keyword.`
             : `No ${data} available. Please check back later`}
         </p>
-        <button className="explore-more" onClick={() => navigate(-1)}>
+        <button className="submit-btn" onClick={() => navigate(-1)}>
           Go Back
         </button>
       </div>

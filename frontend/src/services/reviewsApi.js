@@ -3,8 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const reviewsApi = createApi({
   reducerPath: "reviewsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api/v1",
-    // prepareHeaders: (headers) => {
+    baseUrl: import.meta.env.VITE_BACKEND_URL || "http://localhost:8000/api/v1", // prepareHeaders: (headers) => {
     //   headers.set("Accept", "application/json");
     //   return headers;
     // },
