@@ -1,0 +1,254 @@
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 24px;
+  font-family: "Amazon Ember", Arial, sans-serif;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.heading {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  font-size: 26px;
+  font-weight: 400;
+  color: #0f1111;
+}
+
+.fallback-text {
+  margin-top: 20px;
+  color: #565959;
+  font-size: 14px;
+}
+
+.orders-list {
+  margin-top: 20px;
+}
+
+.order-card {
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.order-header {
+  background-color: #f0f2f2;
+  border-bottom: 1px solid #d5d9d9;
+  padding: 14px 18px;
+  display: flex;
+  gap: 40px;
+  font-size: 12px;
+  color: #565959;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.header-label {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header-value {
+  color: #0f1111;
+  font-weight: 500;
+}
+
+.header-right {
+  margin-left: auto;
+  text-align: right;
+  min-width: fit-content;
+  word-break: break-all;
+}
+
+.order-body {
+  padding: 0 18px;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid #f0f2f2;
+  gap: 15px;
+}
+
+.item-image {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-right: 5px;
+  background-color: #fafafa;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.item-details {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.item-name {
+  margin: 0 0 5px 0;
+  color: #007185;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-meta {
+  margin: 3px 0;
+  font-size: 13px;
+  color: #565959;
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.status-badge.status-shipped {
+  color: #007600;
+}
+.status-badge.status-processing {
+  color: #b12704;
+}
+.status-badge.status-cancelled {
+  color: #767676;
+}
+
+.item-actions {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.cancel-btn {
+  /* background-color: #fff; */
+  /* border: 1px solid #a88734;
+  background: linear-gradient(to bottom, #f7dfa5, #f0c14b); */
+  /* background-color: var(--primary-main); */
+  background-color: var(--primary-dark);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  /* color: #111; */
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+  transition: background 0.1s ease;
+  white-space: nowrap;
+}
+.cancel-btn:hover {
+  background-color: var(--bg-primary);
+  color: #fff;
+}
+
+.disabled-btn {
+  background-color: #f7f8f8;
+  border: 1px solid #e7e9ec;
+  border-radius: 8px;
+  padding: 7px 14px;
+  color: #565959;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: not-allowed;
+  text-align: center;
+  min-width: 95px;
+  white-space: nowrap;
+}
+.disabled-btn:hover {
+  background-color: rgb(204, 204, 204);
+  color: #111;
+}
+
+.pagination-container {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 40px;
+}
+
+.view-more-btn {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  padding: 10px 32px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  color: #0f1111;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+  transition: background-color 0.2s;
+}
+
+.center-text {
+  text-align: center;
+  padding: 40px;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.order-body-link {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.order-body-link * {
+  text-decoration: none;
+}
+
+@media (max-width: 1250px) {
+  .order-header {
+    gap: 20px;
+  }
+
+  .header-right {
+    margin-left: 0;
+    text-align: left;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    max-width: 85%;
+    padding: 0 12px;
+  }
+
+  .item-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .item-image {
+    width: 75px;
+    height: 75px;
+  }
+
+  .item-actions {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .cancel-btn,
+  .disabled-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,25 @@
+/* In your MainLayout.css */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Takes full screen height */
+}
+
+main {
+  flex: 1; /* Pushes the footer to the bottom */
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Forces the app to at least be the height of the screen */
+}
+
+.main-content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 5rem;
+  width: 100%;
+  min-height: 90vh;
+}

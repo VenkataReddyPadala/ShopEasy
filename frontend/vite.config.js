@@ -1,0 +1,24 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    // If you are using Vite v8+ with Rolldown, use 'rolldownOptions'
+    // If you are using Vite v5/v6 with Rollup, change this key name to 'rollupOptions'
+    rolldownOptions: {
+      output: {
+        manualChunks(id) {
+          // Identify the massive country-state-city library
+          if (id.includes("node_modules/country-state-city")) {
+            return "geo-data-vendor";
+          }
+          // Bundle other standard dependencies cleanly together
+          if (id.includes("node_modules")) {
+            return "vendor";
+          }
+        },
+      },
+    },
+  },
+});

@@ -1,0 +1,27 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  min-height: 200px;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 20px;
+}
+.try-again {
+  /* width: 100%; */
+  padding: 12px 20px;
+  background: var(--border-color);
+  border: 1px solid var(--bg-primary);
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 20px 0;
+  color: var(--text-primary);
+}

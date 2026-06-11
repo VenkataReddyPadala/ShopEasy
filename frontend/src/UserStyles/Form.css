@@ -1,0 +1,237 @@
+/* .container {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+} */
+
+.active-tab {
+  color: var(--primary-main);
+  font-weight: bold;
+  border-bottom: 3px solid var(--primary-main);
+}
+
+.form-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  width: 400px;
+  background-color: rgb(246, 243, 243);
+  padding: 20px;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.form {
+  width: 100%;
+}
+
+.form h2 {
+  text-align: center;
+  color: var(--primary-main);
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.avatar-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  /* width: fit-content; */
+  cursor: pointer;
+}
+
+.file-input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  width: 80%;
+}
+.error-text {
+  color: red;
+  margin-top: 10px;
+  padding-left: 14px;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid var(--primary-main);
+}
+.avatar-action-btn-form {
+  position: absolute;
+  /* top: 2px;
+  right: 2px; */
+  top: -3px;
+  right: -2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+
+  border: 2px solid white;
+  /* font-family: Arial, sans-serif; */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+.avatar-action-btn-form::before,
+/* Create the vertical bar */
+.avatar-action-btn-form::after {
+  content: "";
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* Horizontal bar dimensions */
+.avatar-action-btn-form::before {
+  width: 14px;
+  height: 2.5px; /* Control thickness here */
+}
+
+/* Vertical bar dimensions */
+.avatar-action-btn-form::after {
+  width: 2.5px; /* Control thickness here */
+  height: 14px;
+}
+.avatar-action-btn-form:hover {
+  /* transform: scale(1.1); */
+  /* transform: scale3d(1.15, 1.15, 1); */
+  filter: brightness(1.1);
+}
+.remove-btn {
+  background-color: #e74c3c;
+  transform: rotate(45deg);
+}
+.remove-btn:hover {
+  transform: rotate(45deg) scale(1.15);
+}
+
+.add-btn {
+  background-color: var(--primary-main);
+}
+.add-btn:hover {
+  transform: scale(1.15);
+}
+
+.authBtn {
+  width: 100%;
+  background: var(--primary-main);
+  color: var(--text-primary);
+  border: none;
+  padding: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+/* button:hover {
+  background: var(--primary-dark);
+  color: var(--text-primary);
+} */
+.form-links {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}
+
+.form-links a {
+  color: var(--border-color);
+  margin-left: 5px;
+}
+
+.form-links a:hover {
+  text-decoration: underline;
+}
+
+.pointer {
+  cursor: pointer;
+  color: var(--primary-main);
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  min-height: 100vh;
+  width: 100%;
+}
+.update-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  width: 100%;
+  margin-top: 70px;
+}
+.forgot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  width: 100%;
+  margin-top: 30px;
+}
+.email-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  /* button {
+    font-size: 14px;
+    padding: 10px;
+  } */
+
+  .input-group input {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .tab {
+    font-size: 14px;
+  }
+  .update-container {
+    margin-top: 60px;
+  }
+}
