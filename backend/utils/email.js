@@ -16,26 +16,33 @@ import nodemailer from "nodemailer";
 //   await transporter.sendMail(mailOptions);
 // };
 
+import nodemailer from "nodemailer";
+import dns from "dns"; // Built-in Node.js module
+
 export const sendEmail = async (options) => {
-  // We use explicit fallbacks so it never defaults to localhost (::1)
   const mailHost = process.env.SMTP_HOST || "smtp.gmail.com";
   const mailPort = parseInt(process.env.SMTP_PORT, 10) || 465;
 
   const transporter = nodemailer.createTransport({
     host: mailHost,
     port: mailPort,
-    secure: mailPort === 465, // true for 465, false for 587
+    secure: mailPort === 465, // true for 465
     auth: {
       user: process.env.SMTP_MAIL,
-      pass: process.env.SMTP_PASSWORD, // Your 16-character App Password
+      pass: process.env.SMTP_PASSWORD,
     },
-    // Add this timeout configuration to prevent infinite hanging
+    // 💡 FORCE IPV4 ONLY (Fixes ENETUNREACH on cloud platforms)
+    dnsLookup: (hostname, options, callback) => {
+      dns.lookup(hostname, { family: 4 }, (err, address, family) => {
+        callback(err, address, family);
+      });
+    },
     connectionTimeout: 10000,
     greetingTimeout: 10000,
   });
 
   const mailOptions = {
-    from: `Your App Name <${process.env.SMTP_MAIL}>`,
+    from: `ShopEasy <${process.env.SMTP_MAIL}>`,
     to: options.email,
     subject: options.subject,
     text: options.message,
