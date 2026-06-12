@@ -16,7 +16,6 @@ import nodemailer from "nodemailer";
 //   await transporter.sendMail(mailOptions);
 // };
 
-import nodemailer from "nodemailer";
 import dns from "dns"; // Built-in Node.js module
 
 export const sendEmail = async (options) => {
