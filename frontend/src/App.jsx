@@ -196,6 +196,8 @@ import { adminLoader } from "./util/adminLoader";
 
 // 2. Turn your page imports into lazy imports
 const Home = lazy(() => import("./pages/Home"));
+const AboutUs = lazy(() => import("./pages/AboutUs"));
+const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ProductDetails = lazy(() => import("./pages/ProductDetails"));
 const Products = lazy(() => import("./pages/Products"));
 const Profile = lazy(() => import("./User/Profile"));
@@ -236,6 +238,14 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <Products />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs />,
+      },
+      {
+        path: "/contact",
+        element: <ContactUs />,
       },
       {
         path: "/account",
