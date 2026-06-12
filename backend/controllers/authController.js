@@ -121,15 +121,31 @@ export const login = catchAsync(async (req, res, next) => {
 });
 
 export const logout = (req, res) => {
+  const isProduction = process.env.NODE_ENV === "production";
+
   res.cookie("jwt", "loggedout", {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
   });
+
   res.status(200).json({
     status: "success",
     message: "Successfully logged out",
   });
 };
+
+// export const logout = (req, res) => {
+//   res.cookie("jwt", "loggedout", {
+//     expires: new Date(Date.now() + 10 * 1000),
+//     httpOnly: true,
+//   });
+//   res.status(200).json({
+//     status: "success",
+//     message: "Successfully logged out",
+//   });
+// };
 
 export const protect = catchAsync(async (req, res, next) => {
   const token = req.cookies.jwt;
