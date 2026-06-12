@@ -241,27 +241,33 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   const resetPasswordURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
-  const message = `Forgot your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in ${process.env.PASSWORD_RESET_EXPIRES_IN} minutes.\n\nIf you didn't request a password reset, please ignore this email!`;
+  const message = `Forgot your password? Use the following link: ${resetPasswordURL}.\n\nExpires in ${process.env.PASSWORD_RESET_EXPIRES_IN} minutes.\n\nIgnore if you didn't request this.`;
 
-  // 1. SEND RESPONSE IMMEDIATELY
-  // This executes instantly, preventing Render from throwing a 500 error to your frontend.
-  res.status(200).json({
-    status: "success",
-    message: `Email sent to ${user.email} successfully`,
-  });
+  try {
+    // ✅ Await the email — only respond on success
+    await sendEmail({
+      email: user.email,
+      subject: "Your password reset token (valid for 10 min)",
+      message,
+    });
 
-  // 2. RUN IN THE BACKGROUND (Notice: NO 'await' keyword here)
-  sendEmail({
-    email: user.email,
-    subject: "Your password reset token (valid for 10 min)",
-    message,
-  }).catch(async (error) => {
-    console.error("❌ BACKGROUND EMAIL ERROR:", error);
-
+    res.status(200).json({
+      status: "success",
+      message: `Email sent to ${user.email} successfully`,
+    });
+  } catch (error) {
+    // ✅ Clean up token and return a real error to frontend
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
-  });
+
+    return next(
+      new AppError(
+        "There was an error sending the email. Try again later!",
+        500
+      )
+    );
+  }
 });
 
 export const resetPassword = catchAsync(async (req, res, next) => {

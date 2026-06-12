@@ -16,7 +16,7 @@ import nodemailer from "nodemailer";
 //   await transporter.sendMail(mailOptions);
 // };
 
-import dns from "dns"; // Built-in Node.js module
+import dns from "dns";
 
 export const sendEmail = async (options) => {
   const mailHost = process.env.SMTP_HOST || "smtp.gmail.com";
@@ -25,15 +25,15 @@ export const sendEmail = async (options) => {
   const transporter = nodemailer.createTransport({
     host: mailHost,
     port: mailPort,
-    secure: mailPort === 465, // true for 465
+    secure: mailPort === 465,
     auth: {
       user: process.env.SMTP_MAIL,
       pass: process.env.SMTP_PASSWORD,
     },
-    // 💡 FORCE IPV4 ONLY (Fixes ENETUNREACH on cloud platforms)
+    // ✅ Fixed: callback only takes (err, address) — drop the `family` arg
     dnsLookup: (hostname, options, callback) => {
-      dns.lookup(hostname, { family: 4 }, (err, address, family) => {
-        callback(err, address, family);
+      dns.lookup(hostname, { family: 4 }, (err, address) => {
+        callback(err, address);
       });
     },
     connectionTimeout: 10000,
