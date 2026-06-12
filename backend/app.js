@@ -9,10 +9,10 @@ import globalErrorHandler from "./controllers/errorController.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import fileUpload from "express-fileupload";
-import path from "path";
-import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// import path from "path";
+// import { fileURLToPath } from "url";
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 const app = express();
 // app.use(cors());
@@ -33,15 +33,15 @@ app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/payments", paymentRouter);
 
-if (process.env.NODE_ENV === "production") {
-  // 1. Serve static files from frontend build
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// if (process.env.NODE_ENV === "production") {
+//   // 1. Serve static files from frontend build
+//   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  // 2. Fallback route for client-side routing
-  app.get("/*splat", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
-  });
-}
+//   // 2. Fallback route for client-side routing
+//   app.get("/*splat", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
+//   });
+// }
 
 app.use(globalErrorHandler);
 export default app;
