@@ -156,6 +156,10 @@
   font-size: 16px;
   transition: background 0.3s;
 }
+.authBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 
 /* button:hover {
   background: var(--primary-dark);

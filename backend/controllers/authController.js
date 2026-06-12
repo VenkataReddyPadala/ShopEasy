@@ -183,11 +183,52 @@ export const restrictTo = (...roles) => {
   };
 };
 
+// export const forgotPassword = catchAsync(async (req, res, next) => {
+//   const user = await User.findOne({ email: req.body.email });
+//   if (!user) {
+//     return next(new AppError("There is no user with that email address.", 404));
+//   }
+//   let resetToken;
+//   try {
+//     resetToken = user.createPasswordResetToken();
+//   } catch (error) {
+//     return next(
+//       new AppError("Could not save reset token, please try again", 500)
+//     );
+//   }
+//   await user.save({ validateBeforeSave: false });
+//   // const resetPasswordURL = `${req.protocol}://${req.get(
+//   //   "host"
+//   // )}/resetPassword/${resetToken}`;
+//   const resetPasswordURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
+//   const message = `Forgor your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in ${process.env.PASSWORD_RESET_EXPIRES_IN} minutes.\n\nIf you didn't request a password reset, please ignore this email!`;
+//   try {
+//     await sendEmail({
+//       email: user.email,
+//       subject: "Your password reset token (valid for 10 min)",
+//       message,
+//     });
+//     res.status(200).json({
+//       status: "success",
+//       message: `Email sent to ${user.email} successfully`,
+//     });
+//   } catch (error) {
+//     user.passwordResetToken = undefined;
+//     user.passwordResetExpires = undefined;
+//     await user.save({ validateBeforeSave: false });
+
+//     return next(
+//       new AppError("There is an error sending the email. Try again later!", 500)
+//     );
+//   }
+// });
+
 export const forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
     return next(new AppError("There is no user with that email address.", 404));
   }
+
   let resetToken;
   try {
     resetToken = user.createPasswordResetToken();
@@ -196,31 +237,31 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
       new AppError("Could not save reset token, please try again", 500)
     );
   }
+
   await user.save({ validateBeforeSave: false });
-  // const resetPasswordURL = `${req.protocol}://${req.get(
-  //   "host"
-  // )}/resetPassword/${resetToken}`;
+
   const resetPasswordURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
-  const message = `Forgor your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in ${process.env.PASSWORD_RESET_EXPIRES_IN} minutes.\n\nIf you didn't request a password reset, please ignore this email!`;
-  try {
-    await sendEmail({
-      email: user.email,
-      subject: "Your password reset token (valid for 10 min)",
-      message,
-    });
-    res.status(200).json({
-      status: "success",
-      message: `Email sent to ${user.email} successfully`,
-    });
-  } catch (error) {
+  const message = `Forgot your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in ${process.env.PASSWORD_RESET_EXPIRES_IN} minutes.\n\nIf you didn't request a password reset, please ignore this email!`;
+
+  // 1. SEND RESPONSE IMMEDIATELY
+  // This executes instantly, preventing Render from throwing a 500 error to your frontend.
+  res.status(200).json({
+    status: "success",
+    message: `Email sent to ${user.email} successfully`,
+  });
+
+  // 2. RUN IN THE BACKGROUND (Notice: NO 'await' keyword here)
+  sendEmail({
+    email: user.email,
+    subject: "Your password reset token (valid for 10 min)",
+    message,
+  }).catch(async (error) => {
+    console.error("❌ BACKGROUND EMAIL ERROR:", error);
+
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
-
-    return next(
-      new AppError("There is an error sending the email. Try again later!", 500)
-    );
-  }
+  });
 });
 
 export const resetPassword = catchAsync(async (req, res, next) => {
