@@ -1,0 +1,81 @@
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #333;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.about-header h1 {
+  font-size: 2.8rem;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.about-header .subtitle {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.about-content {
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 12px;
+  margin-bottom: 60px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.about-text-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.about-text-section p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #eee;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.feature-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #666;
+}

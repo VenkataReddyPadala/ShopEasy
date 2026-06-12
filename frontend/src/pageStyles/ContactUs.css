@@ -1,0 +1,161 @@
+.contact-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #333;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-header h1 {
+  font-size: 2.6rem;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.contact-header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-notice-wrapper {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.contact-notice-wrapper h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.notice-lead {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #444;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.contact-notice-wrapper p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.email-callout-box {
+  background-color: #f0f7ff;
+  border-left: 4px solid #0066cc;
+  padding: 25px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 30px;
+}
+
+.email-callout-box h3 {
+  font-size: 1.1rem;
+  margin: 0 0 10px 0;
+  color: #004da3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.support-email {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 8px 0 !important;
+  word-break: break-all;
+}
+
+.email-hint {
+  font-size: 0.85rem;
+  color: #555;
+  font-style: italic;
+}
+
+.contact-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.info-card {
+  background: #f9f9f9;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+.info-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #111;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 8px;
+}
+
+.info-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-item .info-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.info-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.operating-hours p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.operating-hours ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.operating-hours li {
+  font-size: 0.95rem;
+  padding: 8px 0;
+  border-bottom: 1px dashed #e1e1e1;
+  color: #444;
+}
+
+.operating-hours li:last-child {
+  border-bottom: none;
+}
