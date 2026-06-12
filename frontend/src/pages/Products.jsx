@@ -56,27 +56,29 @@ function Products() {
     <>
       <PageTitle title="All Products" />
       <div className="products-layout">
-        <div className="filter-section">
-          <h3 className="filter-heading">CATEGORIES</h3>
-          {currentCategory && (
+        {currentCategory && (
+          <div className="filter-section">
+            <h3 className="filter-heading">CATEGORIES</h3>
+
             <button className="clear-btn" onClick={clearFilters}>
               Clear
             </button>
-          )}
-          <ul className="category-list">
-            {categories.map((cat) => (
-              <li
-                key={cat}
-                className={`category-item ${
-                  currentCategory === cat ? "active" : ""
-                }`}
-                onClick={() => handleCategoryClick(cat)}
-              >
-                {cat}
-              </li>
-            ))}
-          </ul>
-        </div>
+
+            <ul className="category-list">
+              {categories.map((cat) => (
+                <li
+                  key={cat}
+                  className={`category-item ${
+                    currentCategory === cat ? "active" : ""
+                  }`}
+                  onClick={() => handleCategoryClick(cat)}
+                >
+                  {cat}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className="products-section">
           <div className="products-product-container">
             {isLoading &&
