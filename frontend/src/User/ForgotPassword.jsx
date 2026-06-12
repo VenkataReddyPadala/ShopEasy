@@ -33,7 +33,7 @@ function ForgotPassword() {
             />
           </div>
           <button className="authBtn" disabled={isLoading}>
-            {!isLoading ? "Send Email" : "Sending Email"}
+            {!isLoading ? "Send Email" : "Sending Email..."}
           </button>
         </form>
       </div>
