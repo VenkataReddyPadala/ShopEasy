@@ -33,6 +33,7 @@
 }
 
 .submit-btn {
+  margin-top: 10px;
   padding: 12px;
   /* background-color: var(--bg-secondary); */
   background-color: var(--primary-main);
