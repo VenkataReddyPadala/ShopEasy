@@ -244,8 +244,6 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   const message = `Forgot your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in 10 minutes.`;
 
   try {
-    // 🧠 WE PUT THE AWAIT BACK:
-    // The API will stay in a 'pending' state until the email successfully ships out.
     await sendEmail({
       email: user.email,
       subject: "ShopEasy - Password Reset Request",
