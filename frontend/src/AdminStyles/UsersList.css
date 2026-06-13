@@ -53,22 +53,33 @@
   transition: background-color 0.2s ease;
 }
 
-.edit-icon {
-  color: var(--primary-main);
+.user-actions .edit-btn {
+  color: #64748b;
+  margin-right: 10px;
 }
 
-.edit-icon:hover {
-  background-color: rgba(0, 123, 255, 0.1);
+.user-actions .edit-btn:hover {
+  color: #3b82f6;
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
 }
 
-.delete-icon {
-  color: #f7364a;
-  border: none;
+.user-actions .delete-btn {
+  color: #64748b;
 }
 
-.delete-icon:hover {
-  background-color: rgba(220, 53, 69, 0.1);
-  color: #f3253a;
+.user-actions .delete-btn:hover {
+  color: #ef4444;
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+}
+
+.admin-user-image {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 8px;
 }
 
 .loading-message {

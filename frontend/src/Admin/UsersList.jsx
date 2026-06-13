@@ -97,7 +97,7 @@ function UsersList() {
                       <img
                         src={user.avatar.url}
                         alt={user.name}
-                        className="admin-product-image"
+                        className="admin-user-image"
                       />
                     </td>
                     <td title={user.name}>
@@ -112,7 +112,7 @@ function UsersList() {
                         ? new Date(user.createdAt).toLocaleDateString("en-IN")
                         : "N/A"}
                     </td>
-                    <td className="product-actions">
+                    <td className="user-actions">
                       <button
                         className="edit-btn"
                         onClick={() => openEditModal(user)}

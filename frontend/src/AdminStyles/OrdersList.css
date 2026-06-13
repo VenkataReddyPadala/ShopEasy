@@ -78,12 +78,15 @@
   transition: background-color 0.2s ease;
 }
 
-.edit-icon {
-  color: var(--primary-main);
+.order-actions .edit-btn {
+  color: #64748b;
+  margin-right: 10px;
 }
 
-.edit-icon:hover {
-  background-color: rgba(0, 123, 255, 0.1);
+.order-actions .edit-btn:hover {
+  color: #3b82f6;
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
 }
 
 .delete-icon {

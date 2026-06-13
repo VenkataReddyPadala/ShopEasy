@@ -284,7 +284,7 @@ function OrdersList() {
                       ? new Date(item.createdAt).toLocaleDateString("en-IN")
                       : "N/A"}
                   </td>
-                  <td className="product-actions">
+                  <td className="order-actions">
                     <button
                       className="edit-btn"
                       onClick={() => openEditModal(item)}

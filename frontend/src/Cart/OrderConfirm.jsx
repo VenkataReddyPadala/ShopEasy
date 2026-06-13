@@ -168,14 +168,9 @@ function OrderConfirm() {
 
   return (
     <>
-      {paymentSuccess && (
-        <div className="payment-processing-overlay">
-          <Loader fullPage={true} />
-          <p>Confirming your order...</p>
-        </div>
+      {(isProcessing || isVerifying || paymentSuccess) && (
+        <Loader fullPage={true} />
       )}
-
-      {(isProcessing || isVerifying) && <Loader fullPage={true} />}
       <PageTitle title="Order Confirm" />
       <CheckoutPath activePath={1} />
       <div className="confirm-container">
