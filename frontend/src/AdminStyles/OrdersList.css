@@ -110,6 +110,30 @@
   background-color: rgba(220, 53, 69, 0.1);
   color: #f3253a;
 }
+.view-more-btn {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  padding: 10px 32px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  color: #0f1111;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+  transition: background-color 0.2s;
+}
+.submit-review-btn {
+  background: var(--bg-primary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-review-btn:hover {
+  background: #374759;
+}
 
 @media (max-width: 768px) {
   .ordersList-table {
