@@ -224,13 +224,11 @@ export const restrictTo = (...roles) => {
 // });
 
 export const forgotPassword = catchAsync(async (req, res, next) => {
-  // 1. Find user by email
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
     return next(new AppError("There is no user with that email address.", 404));
   }
 
-  // 2. Generate the random reset token
   let resetToken;
   try {
     resetToken = user.createPasswordResetToken();
@@ -240,39 +238,42 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
     );
   }
 
-  // Save token to database (skipping validators like passwordConfirm)
   await user.save({ validateBeforeSave: false });
 
-  // 3. Create the absolute URL for your Vercel frontend
   const resetPasswordURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
+  const message = `Forgot your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in 10 minutes.`;
 
-  // Plain text fallback message
-  const message = `Forgot your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in 10 minutes.\n\nIf you didn't request a password reset, please ignore this email!`;
+  try {
+    // 🧠 WE PUT THE AWAIT BACK:
+    // The API will stay in a 'pending' state until the email successfully ships out.
+    await sendEmail({
+      email: user.email,
+      subject: "ShopEasy - Password Reset Request",
+      message: message,
+      resetLink: resetPasswordURL,
+    });
 
-  // 4. FIRE AND FORGET (No 'await' here)
-  // We trigger Nodemailer in the background so the user doesn't wait 15 seconds
-  sendEmail({
-    email: user.email,
-    subject: "ShopEasy - Password Reset Request",
-    message: message, // Plain text fallback
-    resetLink: resetPasswordURL, // Your HTML button link
-  }).catch(async (error) => {
-    // CRITICAL: Since we don't await, errors are caught inside this catch block.
-    // If Nodemailer fails in the background, we clean up the DB tokens.
-    console.error("Background Nodemailer Error on Render:", error);
+    // This only fires if sendEmail completes without throwing an error
+    res.status(200).json({
+      status: "success",
+      message: `Email sent to ${user.email} successfully.`,
+    });
+  } catch (error) {
+    // This catches actual sending errors and clears database tokens cleanly
+    console.error("Nodemailer Error caught in controller:", error);
 
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
-  });
 
-  // 5. Instantly respond to the frontend
-  res.status(200).json({
-    status: "success",
-    message: `If an account exists with ${user.email}, a reset link has been sent successfully.`,
-  });
+    return next(
+      new AppError(
+        "There was an error sending the email. Please try again later!",
+        500
+      )
+    );
+  }
 });
-
 export const resetPassword = catchAsync(async (req, res, next) => {
   const hashedToken = crypto
     .createHash("sha256")
