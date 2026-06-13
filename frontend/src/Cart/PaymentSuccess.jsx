@@ -26,7 +26,7 @@ function PaymentSuccess() {
           <h1>🎉 Payment Successful!</h1>
           <p>Thank you for your purchase. Your order has been placed.</p>
           {orderId && (
-            <p>
+            <p className="order-details">
               <strong>Order ID:</strong> {orderId}
             </p>
           )}

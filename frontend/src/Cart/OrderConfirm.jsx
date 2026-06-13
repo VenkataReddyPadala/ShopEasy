@@ -40,10 +40,17 @@ function OrderConfirm() {
     (item) => item._id?.toString() === selectedAddressId?.toString()
   );
 
-  // if (isUserLoading || isCartLoading || isProcessing || isVerifying) {
+  // if (
+  //   isUserLoading ||
+  //   isCartLoading ||
+  //   isProcessing ||
+  //   isVerifying ||
+  //   paymentSuccess
+  // ) {
   //   return <Loader fullPage={true} />;
   // }
-  if (isUserLoading || isCartLoading) {
+
+  if (isUserLoading || isCartLoading || paymentSuccess) {
     return <Loader fullPage={true} />;
   }
 
@@ -168,9 +175,9 @@ function OrderConfirm() {
 
   return (
     <>
-      {(isProcessing || isVerifying || paymentSuccess) && (
+      {/* {(isProcessing || isVerifying || paymentSuccess) && (
         <Loader fullPage={true} />
-      )}
+      )} */}
       <PageTitle title="Order Confirm" />
       <CheckoutPath activePath={1} />
       <div className="confirm-container">
