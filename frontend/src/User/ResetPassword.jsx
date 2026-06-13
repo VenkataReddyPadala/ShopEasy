@@ -38,7 +38,7 @@ function ResetPassword() {
               name="password"
               placeholder="New Password"
               disabled={isUpdating}
-              autoComplete="true"
+              autoComplete="new-password"
             />
             {error?.data?.errors?.password && (
               <span className="error-text">{error.data.errors.password}</span>
@@ -50,7 +50,7 @@ function ResetPassword() {
               name="passwordConfirm"
               placeholder="Confirm Password"
               disabled={isUpdating}
-              autoComplete="true"
+              autoComplete="new-password"
             />
             {error?.data?.errors?.passwordConfirm && (
               <span className="error-text">

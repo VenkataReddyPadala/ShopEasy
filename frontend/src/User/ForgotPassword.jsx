@@ -28,7 +28,7 @@ function ForgotPassword() {
               name="email"
               placeholder="Enter registered Email"
               required={true}
-              autoComplete="true"
+              autoComplete="email"
               disabled={isLoading}
             />
           </div>

@@ -1,4 +1,4 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../UserStyles/Form.css";
 import { toast } from "react-toastify";
 import { useLoginMutation } from "../services/userApi";
@@ -43,6 +43,7 @@ function Login() {
                 placeholder="Email"
                 disabled={isLoading}
                 required={true}
+                autoComplete="email"
               />
             </div>
             <div className="input-group">
@@ -52,7 +53,7 @@ function Login() {
                 placeholder="Password"
                 disabled={isLoading}
                 required={true}
-                autoComplete="true"
+                autoComplete="current-password"
               />
             </div>
             <button

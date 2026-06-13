@@ -132,6 +132,7 @@ function Register() {
                 value={name}
                 onChange={registerDataChange}
                 disabled={isLoading}
+                autoComplete="username"
               />
               {error?.data?.errors?.name && (
                 <span className="error-text">{error.data.errors.name}</span>
@@ -145,6 +146,7 @@ function Register() {
                 value={email}
                 onChange={registerDataChange}
                 disabled={isLoading}
+                autoComplete="email"
               />
               {error?.data?.errors?.email && (
                 <span className="error-text">{error.data.errors.email}</span>
@@ -155,7 +157,7 @@ function Register() {
                 type="password"
                 placeholder="Password"
                 name="password"
-                autoComplete="true"
+                autoComplete="new-password"
                 value={password}
                 onChange={registerDataChange}
                 disabled={isLoading}
@@ -169,7 +171,7 @@ function Register() {
                 type="password"
                 placeholder="Confirm Password"
                 name="passwordConfirm"
-                autoComplete="true"
+                autoComplete="new-password"
                 value={passwordConfirm}
                 onChange={registerDataChange}
                 disabled={isLoading}

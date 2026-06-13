@@ -132,7 +132,7 @@ function UpdateProfile() {
               defaultValue={name}
               onChange={registerDataChange}
               disabled={isUpdating}
-              autoComplete="true"
+              autoComplete="username"
             />
             {error?.data?.errors?.name && (
               <span className="error-text">{error.data.errors.name}</span>
@@ -145,7 +145,7 @@ function UpdateProfile() {
               defaultValue={email}
               onChange={registerDataChange}
               disabled={isUpdating}
-              autoComplete="true"
+              autoComplete="email"
             />
             {error?.data?.errors?.email && (
               <span className="error-text">{error.data.errors.email}</span>
