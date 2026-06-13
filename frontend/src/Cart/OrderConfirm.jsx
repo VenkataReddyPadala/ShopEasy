@@ -13,8 +13,10 @@ import {
 } from "../services/paymentApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 function OrderConfirm() {
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
   const navigate = useNavigate();
   const { selectedAddressId } = useSelector((store) => store.checkout);
   const {
@@ -38,7 +40,10 @@ function OrderConfirm() {
     (item) => item._id?.toString() === selectedAddressId?.toString()
   );
 
-  if (isUserLoading || isCartLoading || isProcessing || isVerifying) {
+  // if (isUserLoading || isCartLoading || isProcessing || isVerifying) {
+  //   return <Loader fullPage={true} />;
+  // }
+  if (isUserLoading || isCartLoading) {
     return <Loader fullPage={true} />;
   }
 
@@ -112,6 +117,7 @@ function OrderConfirm() {
         order_id: razorpayOrder.id,
         handler: async function (response) {
           try {
+            setPaymentSuccess(true);
             // E. When payment succeeds, call verify endpoint with signatures + order data
             const verificationPayload = {
               razorpay_payment_id: response.razorpay_payment_id,
@@ -125,7 +131,6 @@ function OrderConfirm() {
             ).unwrap();
 
             if (verificationResult.status === "success") {
-              refetchCart();
               setTimeout(() => {
                 navigate("/order/success", {
                   replace: true,
@@ -134,9 +139,11 @@ function OrderConfirm() {
                     orderId: verificationResult.order._id,
                   },
                 });
+                refetchCart();
               }, 0);
             }
           } catch (err) {
+            setPaymentSuccess(false);
             toast.error("Payment verification failed! " + err?.data?.message);
           }
         },
@@ -161,6 +168,14 @@ function OrderConfirm() {
 
   return (
     <>
+      {paymentSuccess && (
+        <div className="payment-processing-overlay">
+          <Loader fullPage={true} />
+          <p>Confirming your order...</p>
+        </div>
+      )}
+
+      {(isProcessing || isVerifying) && <Loader fullPage={true} />}
       <PageTitle title="Order Confirm" />
       <CheckoutPath activePath={1} />
       <div className="confirm-container">

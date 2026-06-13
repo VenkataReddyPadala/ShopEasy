@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Country, State, City } from "country-state-city";
 import { toast } from "react-toastify";
+import {
+  useGetCountriesQuery,
+  useGetStatesQuery,
+  useGetCitiesQuery,
+} from "../services/geoApi"; // Adjust this path to match your store layout
 
 function ShippingForm({ initialData, onClose, addAddress, updateAddress }) {
   // Initialize state with initialData if it exists (Edit mode)
-
   const [formData, setFormData] = useState({
     name: initialData?.name || "",
     address: initialData?.address || "",
@@ -17,11 +20,37 @@ function ShippingForm({ initialData, onClose, addAddress, updateAddress }) {
   });
   const inintialIsDefault = initialData?.isDefault || false;
 
+  // RTK Query fetches lightweight data dynamically. Caching avoids duplicate requests.
+  const { data: countries = [], isLoading: loadingCountries } =
+    useGetCountriesQuery();
+
+  const { data: states = [], isLoading: loadingStates } = useGetStatesQuery(
+    formData.country,
+    {
+      skip: !formData.country,
+    }
+  );
+
+  const { data: cities = [], isLoading: loadingCities } = useGetCitiesQuery(
+    { country: formData.country, state: formData.state },
+    { skip: !formData.country || !formData.state }
+  );
+
   const handleChange = (e) => {
     if (e.target.name === "isDefault") {
       return setFormData({ ...formData, isDefault: e.target.checked });
     }
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const { name, value } = e.target;
+
+    // Reset downstream selections cleanly when a parent location changes
+    if (name === "country") {
+      setFormData({ ...formData, country: value, state: "", city: "" });
+    } else if (name === "state") {
+      setFormData({ ...formData, state: value, city: "" });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -95,6 +124,7 @@ function ShippingForm({ initialData, onClose, addAddress, updateAddress }) {
         </div>
 
         <div className="shipping-section">
+          {/* NATIVE COUNTRY DROPDOWN */}
           <div className="shipping-form-group">
             <label htmlFor="country">Country</label>
             <select
@@ -103,49 +133,57 @@ function ShippingForm({ initialData, onClose, addAddress, updateAddress }) {
               onChange={handleChange}
               required
             >
-              <option value="">Select a country</option>
-              {Country.getAllCountries().map((c) => (
-                <option value={c.isoCode} key={c.isoCode}>
-                  {c.name}
+              <option value="">
+                {loadingCountries ? "Loading countries..." : "Select a country"}
+              </option>
+              {countries.map((country) => (
+                <option value={country} key={country}>
+                  {country}
                 </option>
               ))}
             </select>
           </div>
 
           <div className="form-row-flex">
+            {/* NATIVE STATE DROPDOWN */}
             <div className="shipping-form-group">
               <label htmlFor="state">State</label>
               <select
                 name="state"
                 value={formData.state}
                 onChange={handleChange}
+                disabled={!formData.country || loadingStates}
                 required
               >
-                <option value="">Select a state</option>
-                {State.getStatesOfCountry(formData.country).map((s) => (
-                  <option value={s.isoCode} key={s.isoCode}>
-                    {s.name}
+                <option value="">
+                  {loadingStates ? "Loading states..." : "Select a state"}
+                </option>
+                {states.map((state) => (
+                  <option value={state} key={state}>
+                    {state}
                   </option>
                 ))}
               </select>
             </div>
 
+            {/* NATIVE CITY DROPDOWN */}
             <div className="shipping-form-group">
               <label htmlFor="city">City</label>
               <select
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
+                disabled={!formData.state || loadingCities}
                 required
               >
-                <option value="">Select a city</option>
-                {City.getCitiesOfState(formData.country, formData.state).map(
-                  (c) => (
-                    <option value={c.name} key={c.name}>
-                      {c.name}
-                    </option>
-                  )
-                )}
+                <option value="">
+                  {loadingCities ? "Loading cities..." : "Select a city"}
+                </option>
+                {cities.map((city) => (
+                  <option value={city} key={city}>
+                    {city}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

@@ -120,6 +120,17 @@ export const login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+// export const logout = (req, res) => {
+//   res.cookie("jwt", "loggedout", {
+//     expires: new Date(Date.now() + 10 * 1000),
+//     httpOnly: true,
+//   });
+//   res.status(200).json({
+//     status: "success",
+//     message: "Successfully logged out",
+//   });
+// };
+
 export const logout = (req, res) => {
   const isProduction = process.env.NODE_ENV === "production";
 
@@ -135,17 +146,6 @@ export const logout = (req, res) => {
     message: "Successfully logged out",
   });
 };
-
-// export const logout = (req, res) => {
-//   res.cookie("jwt", "loggedout", {
-//     expires: new Date(Date.now() + 10 * 1000),
-//     httpOnly: true,
-//   });
-//   res.status(200).json({
-//     status: "success",
-//     message: "Successfully logged out",
-//   });
-// };
 
 export const protect = catchAsync(async (req, res, next) => {
   const token = req.cookies.jwt;
@@ -203,6 +203,7 @@ export const restrictTo = (...roles) => {
 //   const resetPasswordURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
 //   const message = `Forgor your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in ${process.env.PASSWORD_RESET_EXPIRES_IN} minutes.\n\nIf you didn't request a password reset, please ignore this email!`;
 //   try {
+//  when used await it is taking so long to get the toast bez it usually takes long time to send email using nodemailer so if we remove await it sends toast immediatly and in 10-15 seconds we get the email , we can use resend or sum other 3rd party package but resend needs us to hava domain name otherwise it only send mails to the resend.com registered email
 //     await sendEmail({
 //       email: user.email,
 //       subject: "Your password reset token (valid for 10 min)",
@@ -224,11 +225,13 @@ export const restrictTo = (...roles) => {
 // });
 
 export const forgotPassword = catchAsync(async (req, res, next) => {
+  // 1. Find user by email
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
     return next(new AppError("There is no user with that email address.", 404));
   }
 
+  // 2. Generate the random reset token
   let resetToken;
   try {
     resetToken = user.createPasswordResetToken();
@@ -238,40 +241,39 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
     );
   }
 
+  // Save token to database (skipping validators like passwordConfirm)
   await user.save({ validateBeforeSave: false });
 
+  // 3. Create the absolute URL for your Vercel frontend
   const resetPasswordURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
-  const message = `Forgot your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in 10 minutes.`;
 
-  try {
-    await sendEmail({
-      email: user.email,
-      subject: "ShopEasy - Password Reset Request",
-      message: message,
-      resetLink: resetPasswordURL,
-    });
+  // Plain text fallback message
+  const message = `Forgot your password? Use the following link to reset your password: ${resetPasswordURL}.\n\nThis link will expire in 10 minutes.\n\nIf you didn't request a password reset, please ignore this email!`;
 
-    // This only fires if sendEmail completes without throwing an error
-    res.status(200).json({
-      status: "success",
-      message: `Email sent to ${user.email} successfully.`,
-    });
-  } catch (error) {
-    // This catches actual sending errors and clears database tokens cleanly
-    console.error("Nodemailer Error caught in controller:", error);
+  // 4. FIRE AND FORGET (No 'await' here)
+  // We trigger Nodemailer in the background so the user doesn't wait 15 seconds
+  sendEmail({
+    email: user.email,
+    subject: "ShopEasy - Password Reset Request",
+    message: message, // Plain text fallback
+    resetLink: resetPasswordURL, // Your HTML button link
+  }).catch(async (error) => {
+    // CRITICAL: Since we don't await, errors are caught inside this catch block.
+    // If Nodemailer fails in the background, we clean up the DB tokens.
+    console.error("Background Nodemailer Error on Render:", error);
 
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
+  });
 
-    return next(
-      new AppError(
-        "There was an error sending the email. Please try again later!",
-        500
-      )
-    );
-  }
+  // 5. Instantly respond to the frontend
+  res.status(200).json({
+    status: "success",
+    message: `Reset link has been sent to ${user.email} successfully.`,
+  });
 });
+
 export const resetPassword = catchAsync(async (req, res, next) => {
   const hashedToken = crypto
     .createHash("sha256")
@@ -317,8 +319,7 @@ function createSendToken(user, statusCode, res) {
     ),
     httpOnly: true,
   };
-  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
-  if (process.env.NODE_ENV === "production") cookieOptions.sameSite = "none";
+  // if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
   res.cookie("jwt", token, cookieOptions);
   user.password = undefined;
   user.passwordChangedAt = undefined;

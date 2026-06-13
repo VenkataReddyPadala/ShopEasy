@@ -143,7 +143,7 @@ const Orders = () => {
                             handleCancelClick(order._id, item._id);
                           }}
                           disabled={isCancelling}
-                          className="cancel-btn"
+                          className="order-cancel-btn"
                         >
                           Cancel Item
                         </button>
@@ -205,7 +205,7 @@ const Orders = () => {
               No, Keep It
             </button>
             <button
-              className="cancel-btn"
+              className="order-cancel-btn"
               onClick={handleConfirmCancel}
               disabled={isCancelling}
             >

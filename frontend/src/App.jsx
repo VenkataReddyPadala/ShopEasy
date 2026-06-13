@@ -284,8 +284,8 @@ const router = createBrowserRouter([
       {
         path: "/order/success",
         element: <PaymentSuccess />,
-        loader: authLoader,
-        HydrateFallback: () => <Loader fullPage={true} />,
+        // loader: authLoader,
+        // HydrateFallback: () => <Loader fullPage={true} />,
       },
       {
         path: "/orders",

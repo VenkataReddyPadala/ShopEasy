@@ -7,6 +7,7 @@ import { cartApi } from "../services/cartApi.js";
 import checkoutReducer from "../features/checkout/checkoutSlice.js";
 import { paymentApi } from "../services/paymentApi.js";
 import { ordersApi } from "../services/ordersApi.js";
+import { geoApi } from "../services/geoApi.js";
 
 // const store = configureStore({
 //   reducer: {
@@ -37,6 +38,7 @@ const appReducer = combineReducers({
   [cartApi.reducerPath]: cartApi.reducer,
   [paymentApi.reducerPath]: paymentApi.reducer,
   [ordersApi.reducerPath]: ordersApi.reducer,
+  [geoApi.reducerPath]: geoApi.reducer,
   checkout: checkoutReducer,
 });
 // 2. Create a root reducer that intercepts a global clear signal
@@ -62,7 +64,8 @@ const store = configureStore({
       userApi.middleware,
       cartApi.middleware,
       paymentApi.middleware,
-      ordersApi.middleware
+      ordersApi.middleware,
+      geoApi.middleware
     ),
 });
 setupListeners(store.dispatch);

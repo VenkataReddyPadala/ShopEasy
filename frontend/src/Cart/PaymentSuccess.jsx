@@ -12,8 +12,7 @@ function PaymentSuccess() {
   // If someone typed the URL manually, location.state is undefined.
   // Instantly redirect them away to the homepage or orders tab.
   if (!isLegitimateRedirect) {
-    return navigate("/", { replace: true });
-    // return <Navigate to="/" replace={true} />;
+    return <Navigate to="/" replace={true} />;
   }
 
   return (

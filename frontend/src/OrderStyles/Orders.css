@@ -137,7 +137,7 @@
   flex-shrink: 0;
 }
 
-.cancel-btn {
+.order-cancel-btn {
   /* background-color: #fff; */
   /* border: 1px solid #a88734;
   background: linear-gradient(to bottom, #f7dfa5, #f0c14b); */
@@ -155,7 +155,7 @@
   transition: background 0.1s ease;
   white-space: nowrap;
 }
-.cancel-btn:hover {
+.order-cancel-btn:hover {
   background-color: var(--bg-primary);
   color: #fff;
 }
@@ -246,7 +246,7 @@
     width: 100%;
   }
 
-  .cancel-btn,
+  .order-cancel-btn,
   .disabled-btn {
     width: 100%;
     text-align: center;

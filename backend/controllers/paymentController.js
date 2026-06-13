@@ -91,6 +91,17 @@ export const verifyPayment = catchAsync(async (req, res, next) => {
     );
   }
 
+  const paymentDetails = await razorpayInstance.payments.fetch(
+    razorpay_payment_id
+  );
+
+  if (
+    paymentDetails.status !== "captured" &&
+    paymentDetails.status !== "authorized"
+  ) {
+    return next(new AppError("Payment not completed. Please try again.", 400));
+  }
+
   // 5. Construct Final Order Payload safely with backend-calculated prices
   const finalizedOrderPayload = {
     shippingInfo,
