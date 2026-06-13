@@ -28,10 +28,12 @@ function OrderConfirm() {
 
   // 2. Initialize payment hooks
   const { data: keyData } = useGetKeyQuery();
-  const [processPayment, { isLoading: isProcessing }] =
-    useProcessPaymentMutation();
-  const [verifyPayment, { isLoading: isVerifying }] =
-    useVerifyPaymentMutation();
+  // const [processPayment, { isLoading: isProcessing }] =
+  //   useProcessPaymentMutation();
+  // const [verifyPayment, { isLoading: isVerifying }] =
+  //   useVerifyPaymentMutation();
+  const [processPayment] = useProcessPaymentMutation();
+  const [verifyPayment] = useVerifyPaymentMutation();
 
   const cartItems = data?.data?.items;
   const user = userData?.data;
