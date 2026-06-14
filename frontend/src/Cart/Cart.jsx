@@ -17,7 +17,7 @@ function Cart() {
   const tax = subTotal * 0.18;
   const shippingCharges = subTotal > 500 ? 0 : 50;
   const totalAmount = subTotal + tax + shippingCharges;
-  if (cartItems.length === 0)
+  if (cartItems?.length === 0)
     return (
       <div className="empty-cart-container">
         <PageTitle title="Your Cart" />
