@@ -40,7 +40,7 @@ function Home() {
           />
         ) : (
           <div className="home-product-container">
-            <div className="product-grid">
+            <div className="product-grid-home">
               {isLoading &&
                 Array.from({ length: 8 }).map((_, i) => (
                   <ProductSkeleton key={i} />
