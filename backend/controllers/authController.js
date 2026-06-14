@@ -319,7 +319,10 @@ function createSendToken(user, statusCode, res) {
     ),
     httpOnly: true,
   };
-  // if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+  if (process.env.NODE_ENV === "production") {
+    cookieOptions.secure = true; // Requires HTTPS (Vercel & Render provide this)
+    cookieOptions.sameSite = "none"; // Allows cross-site cookie transfers
+  }
   res.cookie("jwt", token, cookieOptions);
   user.password = undefined;
   user.passwordChangedAt = undefined;

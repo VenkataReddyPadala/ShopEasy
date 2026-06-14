@@ -61,7 +61,7 @@ function Login() {
               disabled={isLoading}
               style={{ pointerEvents: isLoading ? "none" : "auto" }}
             >
-              Login
+              {isLoading ? <span className="spinner-sm"></span> : "Login"}
             </button>
             <p className="form-links">
               Forget your password?<Link to="/forgotPassword">Reset</Link> Here

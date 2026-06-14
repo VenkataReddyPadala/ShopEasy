@@ -34,6 +34,28 @@ img {
   display: block;
   max-width: 100%;
 }
+
 .Toastify__toast-container {
   z-index: 99999 !important;
+}
+
+/* ==========================================
+   Mobile Toast Notification Fix
+   ========================================== */
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container {
+    /* Safe width that leaves margin on left and right sides */
+
+    width: 90vw !important;
+    top: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .Toastify__toast {
+    /* Give individual cards rounded corners and spacing */
+    margin-bottom: 12px !important;
+    /* border-radius: 8px !important; */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
 }

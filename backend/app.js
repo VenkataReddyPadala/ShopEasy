@@ -21,6 +21,7 @@ const allowedOrigins = [
   "http://localhost:4173",
   "http://localhost:5173",
 ];
+app.enable("trust proxy"); // 👈 Tell Express to trust Render's reverse proxy
 
 app.use(
   cors({
