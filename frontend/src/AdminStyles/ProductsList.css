@@ -291,6 +291,13 @@
   background-color: #aaa;
   cursor: not-allowed;
 }
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Change to 3 if you want max 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 220px;
+}
 @media (max-width: 768px) {
   .product-form {
     gap: 10px;
