@@ -38,22 +38,34 @@
 .navbar-links ul {
   display: flex;
   list-style: none;
-  gap: 2.5rem;
+
+  gap: 1rem;
   margin: 0;
   padding: 0;
+}
+.navbar-links li {
+  margin: 0;
+  padding: 0;
+  border-radius: 6px;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .navbar-links li a {
   color: var(--text-primary);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s ease;
+  display: block;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s ease-in-out;
 }
 
-.navbar-links li a:hover {
+.navbar-links li:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.navbar-links li:hover a {
   color: var(--primary-light);
 }
-
 .search-item {
   display: flex;
   align-items: center;

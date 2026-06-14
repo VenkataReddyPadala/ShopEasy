@@ -73,13 +73,19 @@ function Navbar({ isAuthenticated, user }) {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/products">Products</NavLink>
+              <NavLink to="/products" onClick={() => setIsMenuOpen(false)}>
+                Products
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/about">About Us</NavLink>
+              <NavLink to="/about" onClick={() => setIsMenuOpen(false)}>
+                About Us
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/contact">Contact Us</NavLink>
+              <NavLink to="/contact" onClick={() => setIsMenuOpen(false)}>
+                Contact Us
+              </NavLink>
             </li>
           </ul>
         </div>
