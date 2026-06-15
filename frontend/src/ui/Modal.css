@@ -24,9 +24,19 @@
   height: 80dvh;
 } */
 /* Base structural rules for every modal container */
-.modal-container {
+/* .modal-container {
   background: #fff;
   width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  animation: modalFadeIn 0.3s ease-out;
+} */
+.modal-container {
+  background: #fff;
+  width: 90%; /* 1️⃣ Take up 90% of the screen width on mobile devices */
+  max-height: 90dvh; /* 2️⃣ Prevent the modal from running off the bottom of the screen */
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -83,10 +93,16 @@
   color: #000;
 }
 
-.modal-body {
+/* .modal-body {
   padding: 20px;
   max-height: 80vh;
   overflow-y: auto;
+} */
+.modal-body {
+  padding: 20px;
+  /* max-height: 80vh; */
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .modal-footer {
@@ -102,4 +118,11 @@
   margin-top: 0; /* Override previous margin */
   padding: 8px 20px;
   font-size: 14px;
+}
+
+@media (min-width: 800px) {
+  .modal-container.large {
+    max-width: 800px;
+    width: 100%;
+  }
 }

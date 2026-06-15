@@ -66,6 +66,7 @@ function Cart() {
           <button
             className="checkout-btn"
             onClick={() => navigate("/shipping")}
+            disabled={isLoading}
           >
             Proceed to Checkout
           </button>
